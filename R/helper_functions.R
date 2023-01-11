@@ -276,7 +276,7 @@ SignacBoot <- function (E, L, labels, size = 1000, impute = TRUE, spring.dir = N
   ctrl <- Seurat::NormalizeData(ctrl)
   ctrl <- Seurat::AddMetaData(ctrl, metadata=labels[labels %in% L], col.name = "celltypes")
   ctrl <- Seurat::SetIdent(ctrl, value='celltypes')
-  mrks = Seurat::FindMarkers(ctrl, ident.1 = L[1], ident.2 = L[2], only.pos = FALSE, logfc.threshold = logfc.threshold)
+  mrks = Seurat::FindMarkers(ctrl, ident.1 = L[1], ident.2 = L[2], only.pos = FALSE, logfc.threshold = logfc.threshold, base = exp(1))
   mrks = mrks[mrks$p_val_adj < p.val.adj,]
   # bootstrap data
   dat = V[rownames(V) %in% rownames(mrks),]
